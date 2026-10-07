@@ -7,6 +7,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import java.io.IOException;
 
@@ -19,36 +20,41 @@ public class StudentLoginServlet extends HttpServlet {
             HttpServletResponse response)
             throws ServletException, IOException {
 
-        try {
+        int studentId =
+                Integer.parseInt(
+                        request.getParameter("studentId")
+                );
 
-            int studentId =
-                    Integer.parseInt(
-                            request.getParameter("studentId"));
+        String password =
+                request.getParameter("password");
 
-            String password =
-                    request.getParameter("password");
+        StudentDAO dao =
+                new StudentDAO();
 
-            StudentDAO dao = new StudentDAO();
+        boolean valid =
+                dao.loginStudent(
+                        studentId,
+                        password
+                );
 
-            boolean result =
-                    dao.loginStudent(studentId, password);
-if (result) {
+        if (valid) {
 
-    response.sendRedirect(
-            "student-dashboard.jsp");
+            HttpSession session =
+                    request.getSession();
 
-}  else {
+            session.setAttribute(
+                    "studentId",
+                    studentId
+            );
 
-                response.sendRedirect(
-                        "login-failed.jsp");
-            }
+            // Go through DashboardServlet
+            response.sendRedirect("dashboard");
 
-        } catch (Exception e) {
-
-            e.printStackTrace();
+        } else {
 
             response.sendRedirect(
-                    "login-failed.jsp");
+                    "login-failed.jsp"
+            );
         }
     }
 }

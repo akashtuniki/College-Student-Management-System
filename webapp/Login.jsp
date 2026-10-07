@@ -1,25 +1,61 @@
 <!DOCTYPE html>
 <html>
+
 <head>
+
     <title>Student Login</title>
+
+    <link rel="stylesheet" href="css/style.css">
+
 </head>
+
 <body>
 
-    <h1>Student Login</h1>
+    <div class="form-container">
 
-    <form action="login" method="post">
+        <h1>Student Login</h1>
 
-        Student ID:
-        <input type="number" name="studentId" required>
-        <br><br>
+        <form action="login" method="post">
 
-        Password:
-        <input type="password" name="password" required>
-        <br><br>
+            <label for="studentId">
+                Student ID
+            </label>
 
-        <button type="submit">Login</button>
+            <input
+                type="number"
+                id="studentId"
+                name="studentId"
+                required
+            >
 
-    </form>
+
+            <label for="password">
+                Password
+            </label>
+
+            <input
+                type="password"
+                id="password"
+                name="password"
+                required
+            >
+
+
+            <button type="submit">
+                Login
+            </button>
+
+        </form>
+
+        <p style="text-align:center; margin-top:20px;">
+            Don't have an account?
+            <a href="Registration.jsp">
+                Register here
+            </a>
+        </p>
+
+    </div>
 
 </body>
+
 </html>
